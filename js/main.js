@@ -9,6 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Header Nav Scroll Elevation
+  const headerNav = document.querySelector('header.nav');
+  if (headerNav) {
+    const onScroll = () => {
+      if (window.scrollY > 15) {
+        headerNav.classList.add('scrolled');
+      } else {
+        headerNav.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   // Services Data with Rich Details
   const S = [
     {
