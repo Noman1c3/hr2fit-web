@@ -3,12 +3,103 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HR Insights - Practical Articles &amp; Compliance Guides | HR2Fit</title>
-<meta name="description" content="Read expert HR insights, compliance updates, and practical management strategies for small and mid-sized employers from the HR2fit team.">
+<title>HR Insights &amp; Knowledge Library (57 Articles) | HR2Fit</title>
+<meta name="description" content="Explore our library of 57 expert HR articles, compliance updates, hiring advice, and management leadership strategies for small and mid-sized employers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+/* Insights page specific styles */
+.filter-pills-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 24px;
+}
+.cat-pill {
+  background: #fff;
+  color: var(--navy);
+  border: 1.5px solid var(--line);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.cat-pill:hover {
+  border-color: var(--blue);
+  background: #edf5fa;
+}
+.cat-pill.active {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+  box-shadow: 0 4px 12px rgba(33,59,95,0.18);
+}
+.cat-pill .count {
+  opacity: 0.75;
+  font-weight: 500;
+  margin-left: 4px;
+  font-size: 0.82rem;
+}
+.insights-search-wrap {
+  max-width: 580px;
+  margin: 32px auto 0;
+  position: relative;
+}
+.insights-search-input {
+  width: 100%;
+  padding: 14px 22px 14px 48px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  font-family: var(--body);
+  font-size: 0.98rem;
+  color: var(--deep);
+  box-shadow: 0 4px 16px rgba(33,59,95,0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+.insights-search-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 6px 20px rgba(2,91,148,0.14);
+}
+.search-icon-svg {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #7a8fa6;
+  pointer-events: none;
+}
+.results-meta-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--txt);
+  font-size: 0.92rem;
+}
+.no-results-box {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border: 1px dashed var(--line);
+  border-radius: 20px;
+  margin: 40px 0;
+}
+</style>
 </head>
 <body>
 
@@ -20,10 +111,10 @@
 </svg>
 
 <header class="nav"><div class="wrap">
-  <a class="brand" href="/" aria-label="HR2fit home"><img src="images/hr2fit-logo.png" alt="HR2fit" width="120" height="44"></a>
+  <a class="brand" href="index.html" aria-label="HR2fit home"><img src="images/hr2fit-logo.png" alt="HR2fit" width="120" height="44"></a>
   <button class="burger" aria-label="Menu" aria-expanded="false"><b></b><b></b><b></b></button>
   <nav aria-label="Main"><ul id="menu">
-    <li><a href="/">Home</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="hr-services.html">HR Services</a></li>
     <li><a href="recruiting.html">Recruiting</a></li>
     <li><a href="about.html">About</a></li>
@@ -37,148 +128,930 @@
 <section class="page-hero center-hero">
   <div class="wrap">
     <div class="breadcrumbs">
-      <a href="/">Home</a><span class="sep">/</span><span>HR Insights</span>
+      <a href="index.html">Home</a><span class="sep">/</span><span>HR Insights</span>
     </div>
-    <span class="page-eyebrow">Expert Perspectives &amp; Practical Guides</span>
-    <h1>HR Insights for Small &amp; Mid-Sized Businesses</h1>
-    <p class="page-lead">Actionable compliance updates, hiring advice, and management leadership strategies written specifically for business owners, executives, and managers across Massachusetts, New Hampshire, and New England.</p>
+    <span class="page-eyebrow">Practical Articles &amp; Compliance Guides</span>
+    <h1>The HR2fit Knowledge &amp; Insights Library</h1>
+    <p class="page-lead">Actionable compliance updates, hiring advice, employee retention strategies, and leadership wisdom written specifically for business owners, executives, and managers.</p>
+
+    <!-- SEARCH BAR -->
+    <div class="insights-search-wrap">
+      <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="search" id="insights-search" class="insights-search-input" placeholder="Search across 57 articles by keyword, topic, or law..." aria-label="Search articles">
+    </div>
+
+    <!-- CATEGORY FILTER PILLS -->
+    <div class="filter-pills-bar" id="category-pills">
+      <button class="cat-pill active" data-filter="all">All Articles <span class="count">(57)</span></button>
+      <button class="cat-pill" data-filter="HR Strategy">HR Strategy <span class="count">(25)</span></button>
+      <button class="cat-pill" data-filter="HR Tech & Innovation">HR Tech &amp; AI <span class="count">(10)</span></button>
+      <button class="cat-pill" data-filter="Recruiting & Staffing">Recruiting &amp; Hiring <span class="count">(8)</span></button>
+      <button class="cat-pill" data-filter="Employee Relations & Culture">Culture &amp; Retention <span class="count">(6)</span></button>
+      <button class="cat-pill" data-filter="Compliance & Legal">Compliance &amp; Legal <span class="count">(5)</span></button>
+      <button class="cat-pill" data-filter="Payroll & Benefits">Payroll &amp; Benefits <span class="count">(3)</span></button>
+    </div>
   </div>
 </section>
 
 <!-- FEATURED ARTICLE SPOTLIGHT -->
-<section class="sec" style="background:#fff;border-bottom:1px solid var(--line)"><div class="wrap">
-  <div style="background:linear-gradient(135deg, var(--navy) 0%, #035b94 100%);color:#fff;border-radius:28px;padding:clamp(36px, 5.5vw, 64px);display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center;position:relative;overflow:hidden">
+<section class="sec" style="background:#fff;border-bottom:1px solid var(--line);padding-top:40px;padding-bottom:40px"><div class="wrap">
+  <div style="background:linear-gradient(135deg, var(--navy) 0%, #035b94 100%);color:#fff;border-radius:28px;padding:clamp(32px, 5vw, 56px);display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center;position:relative;overflow:hidden">
     <div style="position:relative;z-index:2">
       <span style="display:inline-block;background:var(--lime);color:var(--deep);font-family:var(--head);font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;padding:4px 12px;border-radius:999px;margin-bottom:16px">Featured Insight</span>
-      <h2 style="color:#fff;font-size:clamp(1.8rem, 3.2vw, 2.7rem);line-height:1.18;margin-bottom:16px">What Is the Small Business Ethical Dilemma of AI?</h2>
-      <p style="color:#d4e5f7;font-size:1.02rem;line-height:1.65;margin-bottom:24px">
-        As generative artificial intelligence tools flood workplaces, small and medium business owners face an unprecedented balancing act: harnessing AI productivity gains while guarding employee privacy, avoiding algorithmic bias in recruiting, and preventing confidential company data leaks.
+      <h2 style="color:#fff;font-size:clamp(1.7rem, 3vw, 2.5rem);line-height:1.2;margin-bottom:14px"><a href="what-is-the-small-business-ethical-dilemma-of-ai.html" style="color:#fff;text-decoration:none">What Is the Small Business Ethical Dilemma of AI?</a></h2>
+      <p style="color:#d4e5f7;font-size:0.98rem;line-height:1.6;margin-bottom:22px">
+        To answer this question, we need to understand what constitutes an ethical dilemma. An ethical dilemma is a complex situation in which a person must choose among two or more conflicting moral principles, with no clear...
       </p>
-      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-        <span style="font-size:0.88rem;color:#b1d0ee">📅 July 5, 2026 • 6 min read</span>
-        <a class="btn btn-lime" href="contact.html">Request AI Policy Consultation →</a>
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+        <span style="font-size:0.85rem;color:#b1d0ee">📅 July 05, 2026 • 12 min read</span>
+        <a class="btn btn-lime" href="what-is-the-small-business-ethical-dilemma-of-ai.html">Read Full Article →</a>
       </div>
     </div>
-    <div style="background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:32px;position:relative;z-index:2">
-      <h3 style="color:#fff;font-size:1.25rem;margin-bottom:12px">Key Takeaways for Employers:</h3>
-      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:12px;color:#e1edf8;font-size:0.92rem;line-height:1.55">
+    <div style="background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:28px;position:relative;z-index:2">
+      <h3 style="color:#fff;font-size:1.18rem;margin-bottom:12px">Key Takeaways for Business Leaders:</h3>
+      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:10px;color:#e1edf8;font-size:0.9rem;line-height:1.5">
         <li>✓ Establishing an explicit workplace AI usage policy before employees use tools ad-hoc.</li>
-        <li>✓ Preventing intellectual property and proprietary client data leaks into public LLMs.</li>
-        <li>✓ Monitoring potential anti-discrimination risks in AI-assisted resume screening.</li>
+        <li>✓ Preventing proprietary client data leaks into public large language models.</li>
+        <li>✓ Balancing algorithmic automation with human empathy and customer loyalty.</li>
       </ul>
+      <a href="contact.html" style="display:inline-block;margin-top:16px;color:var(--lime);font-weight:700;font-size:0.86rem;text-decoration:underline">Schedule an AI Policy Consultation →</a>
     </div>
   </div>
 </div></section>
 
-<!-- ARTICLES GRID -->
+<!-- ALL 57 ARTICLES GRID -->
 <section class="sec" style="background:var(--paper)"><div class="wrap">
-  <div class="center" style="max-width:760px">
-    <span class="sec-eyebrow">Latest Articles</span>
-    <h2>Practical Guidance Across Employment Law, Staffing, &amp; Culture</h2>
+  <div class="results-meta-bar">
+    <div>
+      Showing <strong id="showing-count" style="color:var(--navy)">57</strong> articles in <span id="active-category-label" style="font-weight:700;color:var(--blue)">All Categories</span>
+    </div>
+    <div style="font-size:0.85rem">
+      Browse below or click any card for full details
+    </div>
   </div>
 
-  <div class="insights-grid">
-    <!-- Article 1 -->
-    <article class="insight-card">
-      <div class="insight-card-header">
-        <span class="insight-badge">Compliance</span>
-        <div style="color:rgba(255,255,255,0.8);font-size:0.82rem">Federal Employment Law</div>
+  <div class="insights-grid" id="insights-grid">
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="what is the small business ethical dilemma of ai?" data-excerpt="to answer this question, we need to understand what constitutes an ethical dilemma. an ethical dilemma is a complex situation in which a person must choose among...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
       </div>
       <div class="insight-card-body">
-        <div class="insight-date">March 5, 2024 • 5 min read</div>
-        <h3>What Every Employer Needs to Know About I-9 Forms in 2024</h3>
-        <p>A breakdown of updated DHS remote verification procedures, mandatory Form I-9 edition deadlines, and common audit pitfalls that trigger five-figure penalties.</p>
-        <div class="insight-card-footer">
-          <span style="font-size:0.85rem;color:var(--txt)">By Dr. Cindy Cushman</span>
-          <a class="read-more-link" href="contact.html">Read summary →</a>
+        <div class="insight-date">July 05, 2026 • 12 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="what-is-the-small-business-ethical-dilemma-of-ai.html" style="color:inherit;text-decoration:none">What Is the Small Business Ethical Dilemma of AI?</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">To answer this question, we need to understand what constitutes an ethical dilemma. An ethical dilemma is a complex situation in which a person must choose among...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="what-is-the-small-business-ethical-dilemma-of-ai.html">Read article →</a>
         </div>
       </div>
     </article>
+    <article class="insight-card" data-category="Compliance &amp; Legal" data-title="what every employer needs to know about i-9 forms in 2024" data-excerpt="every employer in the us is required to complete i-9 forms for each individual in their employ. these forms are verified by dhs to ensure that employees have the...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #102a45 0%, #17547d 100%)">
+        <span class="insight-badge">Compliance &amp; Legal</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">March 05, 2024 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="what-every-employer-needs-to-know-about-i-9-forms-in-2024.html" style="color:inherit;text-decoration:none">What Every Employer Needs to Know About I-9 Forms in 2024</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Every employer in the US is required to complete I-9 forms for each individual in their employ. These forms are verified by DHS to ensure that employees have the...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="what-every-employer-needs-to-know-about-i-9-forms-in-2024.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Compliance &amp; Legal" data-title="how to handle service animals in the workplace" data-excerpt="the decision to allow service animals in the workplace is not an easy one. under title i of the ada, employers with at least 15 employees are required to provide...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #102a45 0%, #17547d 100%)">
+        <span class="insight-badge">Compliance &amp; Legal</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">February 27, 2024 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="how-to-handle-service-animals-in-the-workplace.html" style="color:inherit;text-decoration:none">How to Handle Service Animals in the Workplace</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The decision to allow service animals in the workplace is not an easy one. Under Title I of the ADA, employers with at least 15 employees are required to provide...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="how-to-handle-service-animals-in-the-workplace.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Compliance &amp; Legal" data-title="what every massachusetts employer needs to know about the sick time law" data-excerpt="the state of massachusetts has a sick time law that requires most employers to offer paid or unpaid sick time to their employees. this sick time can be used to ca...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #102a45 0%, #17547d 100%)">
+        <span class="insight-badge">Compliance &amp; Legal</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">February 22, 2024 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="what-every-massachusetts-employer-needs-to-know-about-the-sick-time-law.html" style="color:inherit;text-decoration:none">What Every Massachusetts Employer Needs to Know About the Sick Time Law</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The state of Massachusetts has a Sick Time Law that requires most employers to offer paid or unpaid sick time to their employees. This sick time can be used to ca...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="what-every-massachusetts-employer-needs-to-know-about-the-sick-time-law.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="why your company should have an employee handbook" data-excerpt="every business should have an employee handbook, regardless of the size of the business. an employee handbook has many benefits for your company, employees, and m...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">February 19, 2024 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="why-your-company-should-have-an-employee-handbook.html" style="color:inherit;text-decoration:none">Why Your Company Should Have an Employee Handbook</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Every business should have an employee handbook, regardless of the size of the business. An employee handbook has many benefits for your company, employees, and m...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="why-your-company-should-have-an-employee-handbook.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="hr outsourcing: when to leverage external expertise" data-excerpt="hr outsourcing: when to leverage external expertise">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 21, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="hr-outsourcing-when-to-leverage-external-expertise.html" style="color:inherit;text-decoration:none">HR Outsourcing: When to Leverage External Expertise</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">HR Outsourcing: When to Leverage External Expertise</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="hr-outsourcing-when-to-leverage-external-expertise.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Employee Relations &amp; Culture" data-title="employee wellness programs: a pillar of comprehensive hr services" data-excerpt="employee wellness programs: a pillar of comprehensive hr services">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #19385c 0%, #2b6cb0 100%)">
+        <span class="insight-badge">Employee Relations &amp; Culture</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 19, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="employee-wellness-programs-a-pillar-of-comprehensive-hr-services.html" style="color:inherit;text-decoration:none">Employee Wellness Programs: A Pillar of Comprehensive HR Services</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Employee Wellness Programs: A Pillar of Comprehensive HR Services</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="employee-wellness-programs-a-pillar-of-comprehensive-hr-services.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="building leaders: how staffing solutions shape future managers" data-excerpt="building leaders: how staffing solutions shape future managers">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 18, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="building-leaders-how-staffing-solutions-shape-future-managers.html" style="color:inherit;text-decoration:none">Building Leaders: How Staffing Solutions Shape Future Managers</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Building Leaders: How Staffing Solutions Shape Future Managers</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="building-leaders-how-staffing-solutions-shape-future-managers.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Compliance &amp; Legal" data-title="navigating compliance: hr services’ role in legal adherence" data-excerpt="navigating compliance: hr services’ role in legal adherence">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #102a45 0%, #17547d 100%)">
+        <span class="insight-badge">Compliance &amp; Legal</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 15, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="navigating-compliance-hr-services-role-in-legal-adherence.html" style="color:inherit;text-decoration:none">Navigating Compliance: HR Services’ Role in Legal Adherence</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Navigating Compliance: HR Services’ Role in Legal Adherence</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="navigating-compliance-hr-services-role-in-legal-adherence.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="the analytics edge: data-driven hr solutions for smarter decisions" data-excerpt="the analytics edge: data-driven hr solutions for smarter decisions">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 13, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="the-analytics-edge-data-driven-hr-solutions-for-smarter-decisions.html" style="color:inherit;text-decoration:none">The Analytics Edge: Data-Driven HR Solutions for Smarter Decisions</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The Analytics Edge: Data-Driven HR Solutions for Smarter Decisions</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="the-analytics-edge-data-driven-hr-solutions-for-smarter-decisions.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="diversity hiring: building an inclusive workforce with effective staffing" data-excerpt="diversity hiring: building an inclusive workforce with effective staffing">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 11, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="diversity-hiring-building-an-inclusive-workforce-with-effective-staffing.html" style="color:inherit;text-decoration:none">Diversity Hiring: Building an Inclusive Workforce with Effective Staffing</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Diversity Hiring: Building an Inclusive Workforce with Effective Staffing</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="diversity-hiring-building-an-inclusive-workforce-with-effective-staffing.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="enhancing employee experience through hr services" data-excerpt="enhancing employee experience through hr services">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 08, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="enhancing-employee-experience-through-hr-services.html" style="color:inherit;text-decoration:none">Enhancing Employee Experience through HR Services</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Enhancing Employee Experience through HR Services</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="enhancing-employee-experience-through-hr-services.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="innovative recruitment techniques: the future of staffing" data-excerpt="innovative recruitment techniques: the future of staffing">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 07, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="innovative-recruitment-techniques-the-future-of-staffing.html" style="color:inherit;text-decoration:none">Innovative Recruitment Techniques: The Future of Staffing</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Innovative Recruitment Techniques: The Future of Staffing</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="innovative-recruitment-techniques-the-future-of-staffing.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="the art of employee retention: comprehensive hr’s role" data-excerpt="the art of employee retention: comprehensive hr&amp;#8217;s role">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 05, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="the-art-of-employee-retention-comprehensive-hrs-role.html" style="color:inherit;text-decoration:none">The Art of Employee Retention: Comprehensive HR’s Role</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The Art of Employee Retention: Comprehensive HR&amp;#8217;s Role</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="the-art-of-employee-retention-comprehensive-hrs-role.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="strategic staffing solutions: aligning talent with business objectives" data-excerpt="strategic staffing solutions: aligning talent with business objectives">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 04, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="strategic-staffing-solutions-aligning-talent-with-business-objectives.html" style="color:inherit;text-decoration:none">Strategic Staffing Solutions: Aligning Talent with Business Objectives</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Strategic Staffing Solutions: Aligning Talent with Business Objectives</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="strategic-staffing-solutions-aligning-talent-with-business-objectives.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="maximizing potential: comprehensive hr services for business growth" data-excerpt="businesses that leverage integrated hr services are finding themselves ahead of the curve. comprehensive hr services are no longer just about managing the workfor...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 01, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="maximizing-potential-comprehensive-hr-services-for-business-growth.html" style="color:inherit;text-decoration:none">Maximizing Potential: Comprehensive HR Services for Business Growth</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Businesses that leverage integrated HR services are finding themselves ahead of the curve. Comprehensive HR services are no longer just about managing the workfor...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="maximizing-potential-comprehensive-hr-services-for-business-growth.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="retaining top talent: beyond monetary benefits" data-excerpt="retaining top performers has become a critical challenge for organizations worldwide. the contemporary workforce, particularly the millennial and gen z cohorts, s...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 29, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="retaining-top-talent-beyond-monetary-benefits.html" style="color:inherit;text-decoration:none">Retaining Top Talent: Beyond Monetary Benefits</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Retaining top performers has become a critical challenge for organizations worldwide. The contemporary workforce, particularly the millennial and Gen Z cohorts, s...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="retaining-top-talent-beyond-monetary-benefits.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Employee Relations &amp; Culture" data-title="regional focus: the rise of remote work culture in the usa" data-excerpt="the american workforce has witnessed a pivotal transformation over the past few years, with remote work culture proliferating nationwide. this change, propelled m...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #19385c 0%, #2b6cb0 100%)">
+        <span class="insight-badge">Employee Relations &amp; Culture</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 27, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="regional-focus-the-rise-of-remote-work-culture-in-the-usa.html" style="color:inherit;text-decoration:none">Regional Focus: The Rise of Remote Work Culture in the USA</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The American workforce has witnessed a pivotal transformation over the past few years, with remote work culture proliferating nationwide. This change, propelled m...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="regional-focus-the-rise-of-remote-work-culture-in-the-usa.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="employee training &amp;amp; development: preparing for the future" data-excerpt="employee training &amp;amp; development: preparing for the future">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 25, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="employee-training-development-preparing-for-the-future.html" style="color:inherit;text-decoration:none">Employee Training &amp;amp; Development: Preparing for the Future</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Employee Training &amp;amp; Development: Preparing for the Future</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="employee-training-development-preparing-for-the-future.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Compliance &amp; Legal" data-title="legal landscapes: navigating hr compliance in different states" data-excerpt="legal landscapes: navigating hr compliance in different states">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #102a45 0%, #17547d 100%)">
+        <span class="insight-badge">Compliance &amp; Legal</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 23, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="legal-landscapes-navigating-hr-compliance-in-different-states.html" style="color:inherit;text-decoration:none">Legal Landscapes: Navigating HR Compliance in Different States</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Legal Landscapes: Navigating HR Compliance in Different States</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="legal-landscapes-navigating-hr-compliance-in-different-states.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="advanced hr analytics: predicting employee behavior" data-excerpt="advanced hr analytics: predicting employee behavior">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 21, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="advanced-hr-analytics-predicting-employee-behavior.html" style="color:inherit;text-decoration:none">Advanced HR Analytics: Predicting Employee Behavior</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Advanced HR Analytics: Predicting Employee Behavior</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="advanced-hr-analytics-predicting-employee-behavior.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="how silicon valley shapes hr trends globally" data-excerpt="regional focus: how silicon valley shapes hr trends globally">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 19, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="how-silicon-valley-shapes-hr-trends-globally.html" style="color:inherit;text-decoration:none">How Silicon Valley Shapes HR Trends Globally</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Regional Focus: How Silicon Valley Shapes HR Trends Globally</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="how-silicon-valley-shapes-hr-trends-globally.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="incorporating diversity &amp;amp; inclusion in hr strategies" data-excerpt="incorporating diversity &amp;amp; inclusion in hr strategies">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 17, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="incorporating-diversity-inclusion-in-hr-strategies.html" style="color:inherit;text-decoration:none">Incorporating Diversity &amp;amp; Inclusion in HR Strategies</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Incorporating Diversity &amp;amp; Inclusion in HR Strategies</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="incorporating-diversity-inclusion-in-hr-strategies.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="the evolution of performance appraisal systems" data-excerpt="in the ever-evolving landscape of human resources, performance appraisals have undergone significant transformation. the old guard, with their annual reviews and...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 15, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="the-evolution-of-performance-appraisal-systems.html" style="color:inherit;text-decoration:none">The Evolution of Performance Appraisal Systems</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">In the ever-evolving landscape of Human Resources, performance appraisals have undergone significant transformation. The old guard, with their annual reviews and...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="the-evolution-of-performance-appraisal-systems.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="regional focus: hr practices tailored for the us market" data-excerpt="as global markets continue to meld into an interconnected web of economic activity, there is an emerging realization among billion-dollar conglomerates and buddin...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 13, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="regional-focus-hr-practices-tailored-for-the-us-market.html" style="color:inherit;text-decoration:none">Regional Focus: HR Practices Tailored for the US Market</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">As global markets continue to meld into an interconnected web of economic activity, there is an emerging realization among billion-dollar conglomerates and buddin...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="regional-focus-hr-practices-tailored-for-the-us-market.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="employee well-being: beyond physical health" data-excerpt="corporate progress and relentless deadlines are always a factor, but there is an aspect that often gets overshadowed: employee well-being. it&amp;#8217;s a misconcept...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 11, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="employee-well-being-beyond-physical-health.html" style="color:inherit;text-decoration:none">Employee Well-being: Beyond Physical Health</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Corporate progress and relentless deadlines are always a factor, but there is an aspect that often gets overshadowed: Employee well-being. It&amp;#8217;s a misconcept...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="employee-well-being-beyond-physical-health.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="advanced talent acquisition techniques in modern hr" data-excerpt="talent acquisition is a pivotal process, setting the trajectory for a company&amp;#8217;s success. with rapid technological advancements, gone are the days when tradi...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 09, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="advanced-talent-acquisition-techniques-in-modern-hr.html" style="color:inherit;text-decoration:none">Advanced Talent Acquisition Techniques in Modern HR</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Talent acquisition is a pivotal process, setting the trajectory for a company&amp;#8217;s success. With rapid technological advancements, gone are the days when tradi...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="advanced-talent-acquisition-techniques-in-modern-hr.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Employee Relations &amp; Culture" data-title="case study: a look at a successful human resources outsourced solution in the usa. relationship matters: the importance of employee relations in outsourcing services." data-excerpt="many organizations outsource to streamline operations, reduce costs, and focus on core competencies. one particular area that has seen a rise in outsourcing is hu...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #19385c 0%, #2b6cb0 100%)">
+        <span class="insight-badge">Employee Relations &amp; Culture</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 07, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="case-study-a-look-at-a-successful-human-resources-outsourced-solution-in-the-usa-relationship-matters-the-importance-of-employee-relations-in-outsourcing-services.html" style="color:inherit;text-decoration:none">Case Study: A Look at a Successful Human Resources Outsourced Solution in the USA. Relationship Matters: The Importance of Employee Relations in Outsourcing Services.</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Many organizations outsource to streamline operations, reduce costs, and focus on core competencies. One particular area that has seen a rise in outsourcing is Hu...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="case-study-a-look-at-a-successful-human-resources-outsourced-solution-in-the-usa-relationship-matters-the-importance-of-employee-relations-in-outsourcing-services.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="comprehensive hr solutions: introducing a complete outsourced human resource solution for small businesses" data-excerpt="in the bustling realm of small business management, where every decision can be the difference between success and stagnation, business owners are constantly seek...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 05, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="comprehensive-hr-solutions-introducing-a-complete-outsourced-human-resource-solution-for-small-businesses.html" style="color:inherit;text-decoration:none">Comprehensive HR Solutions: Introducing a Complete Outsourced Human Resource Solution for Small Businesses</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">In the bustling realm of small business management, where every decision can be the difference between success and stagnation, business owners are constantly seek...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="comprehensive-hr-solutions-introducing-a-complete-outsourced-human-resource-solution-for-small-businesses.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="efficient solutions: streamlining operations with small business outsourced hr service" data-excerpt="in the frenetic universe of small business management, efficiency isn&amp;#8217;t just a buzzword—it&amp;#8217;s a lifeline. as competition surges and margins tighten, en...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 03, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="efficient-solutions-streamlining-operations-with-small-business-outsourced-hr-service.html" style="color:inherit;text-decoration:none">Efficient Solutions: Streamlining Operations with Small Business Outsourced HR Service</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">In the frenetic universe of small business management, efficiency isn&amp;#8217;t just a buzzword—it&amp;#8217;s a lifeline. As competition surges and margins tighten, en...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="efficient-solutions-streamlining-operations-with-small-business-outsourced-hr-service.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="comparative analysis: small business outsourcing hr service in usa vs. offshore solutions" data-excerpt="small businesses increasingly turn to outsourcing as a strategic move to achieve operational efficiency. among the many functions that can be outsourced, human re...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">November 02, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="comparative-analysis-small-business-outsourcing-hr-service-in-usa-vs-offshore-solutions.html" style="color:inherit;text-decoration:none">Comparative Analysis: Small Business Outsourcing HR Service in USA vs. Offshore Solutions</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Small businesses increasingly turn to outsourcing as a strategic move to achieve operational efficiency. Among the many functions that can be outsourced, Human Re...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="comparative-analysis-small-business-outsourcing-hr-service-in-usa-vs-offshore-solutions.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="niche outsourcing: hr outsourcing services: why small business needs special attention" data-excerpt="behemoth corporations often steal the spotlight, so it&amp;#8217;s easy to overlook the unique intricacies of small businesses. while the core principles of human res...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 31, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="niche-outsourcing-hr-outsourcing-services-why-small-business-needs-special-attention.html" style="color:inherit;text-decoration:none">Niche Outsourcing: HR Outsourcing Services: Why Small Business Needs Special Attention</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Behemoth corporations often steal the spotlight, so it&amp;#8217;s easy to overlook the unique intricacies of small businesses. While the core principles of human res...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="niche-outsourcing-hr-outsourcing-services-why-small-business-needs-special-attention.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Payroll &amp; Benefits" data-title="small business insights: top benefits of hr outsourcing services for small business" data-excerpt="every resource counts, and efficiency is paramount; hr (human resources) can sometimes feel burdensome. small business owners often juggle multiple roles, from th...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #0e304f 0%, #1d709e 100%)">
+        <span class="insight-badge">Payroll &amp; Benefits</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 30, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="small-business-insights-top-benefits-of-hr-outsourcing-services-for-small-business.html" style="color:inherit;text-decoration:none">Small Business Insights: Top Benefits of HR Outsourcing Services for Small Business</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Every resource counts, and efficiency is paramount; HR (Human Resources) can sometimes feel burdensome. Small business owners often juggle multiple roles, from th...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="small-business-insights-top-benefits-of-hr-outsourcing-services-for-small-business.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Payroll &amp; Benefits" data-title="handling payrolls: the advantages of payroll outsourcing service in the usa" data-excerpt="the payroll process is a critical cog in the wheel of business operations. it involves disbursing salaries and ensuring compliance with local, state, and federal...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #0e304f 0%, #1d709e 100%)">
+        <span class="insight-badge">Payroll &amp; Benefits</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 29, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="handling-payrolls-the-advantages-of-payroll-outsourcing-service-in-the-usa.html" style="color:inherit;text-decoration:none">Handling Payrolls: The Advantages of Payroll Outsourcing Service in the USA</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The payroll process is a critical cog in the wheel of business operations. It involves disbursing salaries and ensuring compliance with local, state, and federal...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="handling-payrolls-the-advantages-of-payroll-outsourcing-service-in-the-usa.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="behind the scenes: inside the operations of a human resource management company" data-excerpt="human resource management companies (hrmcs) are pivotal players, orchestrating the symphony of talent, culture, and organizational growth. but what truly happens...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 28, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="behind-the-scenes-inside-the-operations-of-a-human-resource-management-company.html" style="color:inherit;text-decoration:none">Behind the Scenes: Inside the Operations of a Human Resource Management Company</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Human Resource Management Companies (HRMCs) are pivotal players, orchestrating the symphony of talent, culture, and organizational growth. But what truly happens...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="behind-the-scenes-inside-the-operations-of-a-human-resource-management-company.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="regional focus: why the best hr company for small business is in the usa" data-excerpt="the world of human resources is expansive, with its roots branching out to various corners of the globe. however, when zeroing in on the best hr company for small...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 27, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="regional-focus-why-the-best-hr-company-for-small-business-is-in-the-usa.html" style="color:inherit;text-decoration:none">Regional Focus: Why the Best HR Company for Small Business is in the USA</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The world of Human Resources is expansive, with its roots branching out to various corners of the globe. However, when zeroing in on the best HR company for small...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="regional-focus-why-the-best-hr-company-for-small-business-is-in-the-usa.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="choosing a partner: hr company for small business vs. big corporations: what&amp;#039;s the difference?" data-excerpt="in the digital-first world, one thing remains constant: people are a company&amp;#8217;s most valuable asset. yet, how we manage, nurture, and invest in our human res...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 26, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="choosing-a-partner-hr-company-for-small-business-vs-big-corporations-whats-the-difference.html" style="color:inherit;text-decoration:none">Choosing a Partner: HR Company for Small Business vs. Big Corporations: What&amp;#039;s the Difference?</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">In the digital-first world, one thing remains constant: people are a company&amp;#8217;s most valuable asset. Yet, how we manage, nurture, and invest in our human res...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="choosing-a-partner-hr-company-for-small-business-vs-big-corporations-whats-the-difference.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="specific solutions: outsourced hr for small businesses in the usa: tailored solutions for unique needs" data-excerpt="small businesses face unique challenges that require specific solutions. managing human resources (hr) is one such challenge. with the diverse needs of employees...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 25, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="specific-solutions-outsourced-hr-for-small-businesses-in-the-usa-tailored-solutions-for-unique-needs.html" style="color:inherit;text-decoration:none">Specific Solutions: Outsourced HR for Small Businesses in the USA: Tailored Solutions for Unique Needs</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Small businesses face unique challenges that require specific solutions. Managing human resources (HR) is one such challenge. With the diverse needs of employees...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="specific-solutions-outsourced-hr-for-small-businesses-in-the-usa-tailored-solutions-for-unique-needs.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="a deeper dive: choosing the right human resources outsourcing firm in the usa" data-excerpt="hr outsourcing has become a linchpin for many successful companies in the usa. companies realize the value of focusing on core business activities and offloading...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 24, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="a-deeper-dive-choosing-the-right-human-resources-outsourcing-firm-in-the-usa.html" style="color:inherit;text-decoration:none">A Deeper Dive: Choosing the Right Human Resources Outsourcing Firm in the USA</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">HR outsourcing has become a linchpin for many successful companies in the USA. Companies realize the value of focusing on core business activities and offloading...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="a-deeper-dive-choosing-the-right-human-resources-outsourcing-firm-in-the-usa.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Payroll &amp; Benefits" data-title="focus on small companies: hr outsourcing for small company: key benefits and considerations" data-excerpt="the quest for efficiency and cost-effectiveness is at every manager&amp;#8217;s mind. small businesses, in particular, face unique challenges that require agile solut...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #0e304f 0%, #1d709e 100%)">
+        <span class="insight-badge">Payroll &amp; Benefits</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 23, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="focus-on-small-companies-hr-outsourcing-for-small-company-key-benefits-and-considerations.html" style="color:inherit;text-decoration:none">Focus on Small Companies: HR Outsourcing for Small Company: Key Benefits and Considerations</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">The quest for efficiency and cost-effectiveness is at every manager&amp;#8217;s mind. Small businesses, in particular, face unique challenges that require agile solut...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="focus-on-small-companies-hr-outsourcing-for-small-company-key-benefits-and-considerations.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="introduction to outsourcing: why the outsource human resource company in usa is a game-changer for businesses" data-excerpt="there&amp;#8217;s a paradigm shift underfoot in today&amp;#8217;s relentlessly evolving business landscape. as enterprises strive to stay agile, scalable, and efficient,...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 22, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="introduction-to-outsourcing-human-resource-usa.html" style="color:inherit;text-decoration:none">Introduction to Outsourcing: Why the Outsource Human Resource Company in USA is a Game-Changer for Businesses</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">There&amp;#8217;s a paradigm shift underfoot in today&amp;#8217;s relentlessly evolving business landscape. As enterprises strive to stay agile, scalable, and efficient,...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="introduction-to-outsourcing-human-resource-usa.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="navigating the waters of human resources: why medium and small businesses in the usa are turning to hr outsourcing" data-excerpt="navigating the complexities of human resources (hr) management can be a daunting task, especially for small and medium businesses. as an outsourced human resource...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 11, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="navigating-the-waters-of-human-resources-why-medium-and-small-businesses-in-the-usa-are-turning-to-hr-outsourcing.html" style="color:inherit;text-decoration:none">Navigating the Waters of Human Resources: Why Medium and Small Businesses in the USA are Turning to HR Outsourcing</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Navigating the complexities of human resources (HR) management can be a daunting task, especially for small and medium businesses. As an outsourced human Resource...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="navigating-the-waters-of-human-resources-why-medium-and-small-businesses-in-the-usa-are-turning-to-hr-outsourcing.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="understanding the stakes: a tailored approach to high-level client meetings in staffing and recruitment" data-excerpt="navigating the intricate realms of staffing and recruitment, the ability to deftly maneuver through various client expectations, especially during high-level clie...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 09, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="understanding-the-stakes-a-tailored-approach-to-high-level-client-meetings-in-staffing-and-recruitment.html" style="color:inherit;text-decoration:none">Understanding the Stakes: A Tailored Approach to High-Level Client Meetings in Staffing and Recruitment</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Navigating the intricate realms of staffing and recruitment, the ability to deftly maneuver through various client expectations, especially during high-level clie...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="understanding-the-stakes-a-tailored-approach-to-high-level-client-meetings-in-staffing-and-recruitment.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="unlocking the true potential of small businesses with hr outsourcing" data-excerpt="in the thriving landscape of entrepreneurs and startups, small businesses are indisputably the backbone of the economy. yet, amidst the hustle to surface triumpha...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 09, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="unlocking-the-true-potential-of-small-businesses-with-hr-outsourcing.html" style="color:inherit;text-decoration:none">Unlocking the True Potential of Small Businesses with HR Outsourcing</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">In the thriving landscape of entrepreneurs and startups, small businesses are indisputably the backbone of the economy. Yet, amidst the hustle to surface triumpha...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="unlocking-the-true-potential-of-small-businesses-with-hr-outsourcing.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Recruiting &amp; Staffing" data-title="honest recruiting for mid-sized businesses: cultivating trust and success" data-excerpt="unlock the secrets to building flourishing, trust-based partnerships in the complex realm of mid-sized business recruitment. striking a perfect balance between af...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #12283e 0%, #025b94 100%)">
+        <span class="insight-badge">Recruiting &amp; Staffing</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">October 05, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="honest-recruiting-for-mid-sized-businesses-cultivating-trust-and-success.html" style="color:inherit;text-decoration:none">Honest Recruiting for Mid-Sized Businesses: Cultivating Trust and Success</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Unlock the secrets to building flourishing, trust-based partnerships in the complex realm of mid-sized business recruitment. Striking a perfect balance between af...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="honest-recruiting-for-mid-sized-businesses-cultivating-trust-and-success.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="the symphony of assessment: a new era of skills mapping" data-excerpt="welcome to the digital transformation era, where skills mapping isn&amp;#8217;t just a tool; it&amp;#8217;s an art form. at hr2fit, we&amp;#8217;re orchestrating a symphony o...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">September 30, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="the-symphony-of-assessment-a-new-era-of-skills-mapping.html" style="color:inherit;text-decoration:none">The Symphony of Assessment: A New Era of Skills Mapping</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Welcome to the digital transformation era, where Skills Mapping isn&amp;#8217;t just a tool; it&amp;#8217;s an art form. At HR2Fit, we&amp;#8217;re orchestrating a symphony o...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="the-symphony-of-assessment-a-new-era-of-skills-mapping.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="get agile or get left behind: agility in modern hr" data-excerpt="hey there, corporate trailblazers and business mavericks! ever feel like the world is spinning so fast you can hardly keep up? fasten your seatbelts because we&amp;#8...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">September 27, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="get-agile-or-get-left-behind-agility-in-modern-hr.html" style="color:inherit;text-decoration:none">Get Agile or Get Left Behind: Agility in Modern HR</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Hey there, Corporate Trailblazers and Business Mavericks! Ever feel like the world is spinning so fast you can hardly keep up? Fasten your seatbelts because we&amp;#8...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="get-agile-or-get-left-behind-agility-in-modern-hr.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="the hr pillars your business can&amp;#039;t ignore" data-excerpt="in today&amp;#8217;s rapid-paced corporate sphere, the principles that underpin our operations are more than just guidelines—they&amp;#8217;re the lifeblood of sustained...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">September 25, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="the-hr-pillars-your-business-cant-ignore.html" style="color:inherit;text-decoration:none">The HR Pillars Your Business Can&amp;#039;t Ignore</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">In today&amp;#8217;s rapid-paced corporate sphere, the principles that underpin our operations are more than just guidelines—they&amp;#8217;re the lifeblood of sustained...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="the-hr-pillars-your-business-cant-ignore.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="hyper-personalization: hr’s next frontier" data-excerpt="hello, world-changers and corporate mavericks! ever get that feeling you&amp;#8217;re standing on the edge of something monumental? today, you don&amp;#8217;t just stand—...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">September 16, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="hyper-personalization-hrs-next-frontier.html" style="color:inherit;text-decoration:none">Hyper-Personalization: HR’s Next Frontier</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Hello, World-Changers and Corporate Mavericks! Ever get that feeling you&amp;#8217;re standing on the edge of something monumental? Today, you don&amp;#8217;t just stand—...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="hyper-personalization-hrs-next-frontier.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="the future of hr is customized—are you ready?" data-excerpt="🚀 strap in because we&amp;#8217;re about to launch into an overdue conversation: the future of hr is not just knocking on your door; it&amp;#8217;s ready to kick it down!...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">September 11, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="the-future-of-hr-is-customized-are-you-ready.html" style="color:inherit;text-decoration:none">The Future of HR Is Customized—Are You Ready?</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">🚀 Strap in because we&amp;#8217;re about to launch into an overdue conversation: The FUTURE of HR is not just knocking on your door; it&amp;#8217;s ready to kick it down!...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="the-future-of-hr-is-customized-are-you-ready.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="introduction to hr2fit: your partner for customizable hr solutions" data-excerpt="hello and welcome to hr2fit, where we&amp;#8217;re pioneering the future of human resource solutions tailored to fit your business needs. you&amp;#8217;ve got the vision,...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">September 07, 2023 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="introduction-to-hr2fit-your-partner-for-customizable-hr-solutions.html" style="color:inherit;text-decoration:none">Introduction to HR2Fit: Your Partner for Customizable HR Solutions</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Hello and welcome to HR2Fit, where we&amp;#8217;re pioneering the future of human resource solutions tailored to fit your business needs. You&amp;#8217;ve got the vision,...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="introduction-to-hr2fit-your-partner-for-customizable-hr-solutions.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Employee Relations &amp; Culture" data-title="5 great examples of employee-reward programs" data-excerpt="staff like to be appreciated! it is easy to be in the day-to-day grind without formally recognizing your team, but as the old saying goes, a little bit of appreci...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #19385c 0%, #2b6cb0 100%)">
+        <span class="insight-badge">Employee Relations &amp; Culture</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">August 06, 2019 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="5-great-examples-of-employee-reward-programs-that-drive-up-performance.html" style="color:inherit;text-decoration:none">5 Great Examples of Employee-Reward Programs</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Staff like to be appreciated! It is easy to be in the day-to-day grind without formally recognizing your team, but as the old saying goes, a little bit of appreci...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="5-great-examples-of-employee-reward-programs-that-drive-up-performance.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Strategy" data-title="motivating your staff to do more with less" data-excerpt="doing more with less sounds counter-intuitive. it sounds almost like the charles dickens story of scrooge, who did not have the best employee practices. however,...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #1b2f4a 0%, #22577a 100%)">
+        <span class="insight-badge">HR Strategy</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 08, 2018 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="why-motivating-your-staff-to-do-more-with-less-is-essential-to-your-business.html" style="color:inherit;text-decoration:none">Motivating Your Staff to Do More with Less</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Doing more with less sounds counter-intuitive. It sounds almost like the Charles Dickens story of Scrooge, who did not have the best employee practices. However,...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="why-motivating-your-staff-to-do-more-with-less-is-essential-to-your-business.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Employee Relations &amp; Culture" data-title="10 common mistakes when giving employees feedback" data-excerpt="providing employees feedback is part of employee relations. constructive feedback can be invaluable for the growth and development of employees. mistakes in provi...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #19385c 0%, #2b6cb0 100%)">
+        <span class="insight-badge">Employee Relations &amp; Culture</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">December 08, 2018 • 4 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="10-most-common-mistakes-when-giving-employees-constructive-feedback.html" style="color:inherit;text-decoration:none">10 Common Mistakes When Giving Employees Feedback</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Providing employees feedback is part of employee relations. Constructive feedback can be invaluable for the growth and development of employees. Mistakes in provi...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="10-most-common-mistakes-when-giving-employees-constructive-feedback.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="improve employee attention to detail without breaking the bank" data-excerpt="detail-oriented work requires concentration and can be challenging when distractions occur. in the modern 24/7 world, immediate responses are expected, especially...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">August 16, 2018 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="how-to-improve-employee-attention-to-detail-without-breaking-the-bank.html" style="color:inherit;text-decoration:none">Improve Employee Attention to Detail Without Breaking the Bank</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Detail-oriented work requires concentration and can be challenging when distractions occur. In the modern 24/7 world, immediate responses are expected, especially...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="how-to-improve-employee-attention-to-detail-without-breaking-the-bank.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="HR Tech &amp; Innovation" data-title="7 tips for accelerating use of new business tools" data-excerpt="technology is constantly in motion. businesses need to upgrade their business tools frequently to be competitive. employees can be resistant to changes in systems...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #0077b6 100%)">
+        <span class="insight-badge">HR Tech &amp; Innovation</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">August 16, 2018 • 3 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="7-most-valuable-tips-for-accelerating-the-adoption-of-new-business-tools.html" style="color:inherit;text-decoration:none">7 Tips for Accelerating Use of New Business Tools</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Technology is constantly in motion. Businesses need to upgrade their business tools frequently to be competitive. Employees can be resistant to changes in systems...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="7-most-valuable-tips-for-accelerating-the-adoption-of-new-business-tools.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+    <article class="insight-card" data-category="Employee Relations &amp; Culture" data-title="3 easy ways to improve employee productivity" data-excerpt="talking can be healthy in the workplace, it can create an atmosphere of collaboration and effective teamwork. however, it becomes a problem when talking in the wo...">
+      <div class="insight-card-header" style="background:linear-gradient(135deg, #19385c 0%, #2b6cb0 100%)">
+        <span class="insight-badge">Employee Relations &amp; Culture</span>
+        <div style="color:rgba(255,255,255,0.85);font-size:0.8rem">HR2fit Guide</div>
+      </div>
+      <div class="insight-card-body">
+        <div class="insight-date">August 14, 2018 • 4 min read</div>
+        <h3 style="font-size:1.18rem;line-height:1.3;margin-bottom:10px"><a href="3-easy-ways-to-improve-employee-productivity-less-talking-more-doing.html" style="color:inherit;text-decoration:none">3 Easy Ways to Improve Employee Productivity</a></h3>
+        <p style="font-size:0.92rem;line-height:1.55;color:var(--txt);margin-bottom:16px">Talking can be healthy in the workplace, it can create an atmosphere of collaboration and effective teamwork. However, it becomes a problem when talking in the wo...</p>
+        <div class="insight-card-footer" style="margin-top:auto">
+          <span style="font-size:0.84rem;color:var(--txt)">By Dr. Cindy Cushman</span>
+          <a class="read-more-link" href="3-easy-ways-to-improve-employee-productivity-less-talking-more-doing.html">Read article →</a>
+        </div>
+      </div>
+    </article>
+  </div>
 
-    <!-- Article 2 -->
-    <article class="insight-card">
-      <div class="insight-card-header" style="background:linear-gradient(135deg, #0f3952 0%, #0088d1 100%)">
-        <span class="insight-badge">Workplace ADA</span>
-        <div style="color:rgba(255,255,255,0.8);font-size:0.82rem">Employee Rights</div>
-      </div>
-      <div class="insight-card-body">
-        <div class="insight-date">February 27, 2024 • 6 min read</div>
-        <h3>How to Handle Service Animals in the Workplace</h3>
-        <p>Understanding ADA obligations versus emotional support animals, permissible employer inquiries, accommodating coworker allergies, and drafting clear workplace policies.</p>
-        <div class="insight-card-footer">
-          <span style="font-size:0.85rem;color:var(--txt)">By Dr. Cindy Cushman</span>
-          <a class="read-more-link" href="contact.html">Read summary →</a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Article 3 -->
-    <article class="insight-card">
-      <div class="insight-card-header" style="background:linear-gradient(135deg, #1f2a44 0%, #176087 100%)">
-        <span class="insight-badge">Massachusetts Law</span>
-        <div style="color:rgba(255,255,255,0.8);font-size:0.82rem">State Regulations</div>
-      </div>
-      <div class="insight-card-body">
-        <div class="insight-date">February 22, 2024 • 7 min read</div>
-        <h3>What Every Massachusetts Employer Needs to Know About the Sick Time Law</h3>
-        <p>Detailed rules on the 30-hour accrual rate, paid versus unpaid thresholds based on company size, employee notice requirements, and anti-retaliation protections.</p>
-        <div class="insight-card-footer">
-          <span style="font-size:0.85rem;color:var(--txt)">By Dr. Cindy Cushman</span>
-          <a class="read-more-link" href="massachusetts.html">Read summary →</a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Article 4 -->
-    <article class="insight-card">
-      <div class="insight-card-header" style="background:linear-gradient(135deg, #172a45 0%, #025b94 100%)">
-        <span class="insight-badge">Handbooks</span>
-        <div style="color:rgba(255,255,255,0.8);font-size:0.82rem">Risk Management</div>
-      </div>
-      <div class="insight-card-body">
-        <div class="insight-date">January 18, 2024 • 5 min read</div>
-        <h3>Why Your Company Should Have an Employee Handbook</h3>
-        <p>Why relying on verbal agreements or outdated handbooks leaves small business owners vulnerable to lawsuits, unemployment disputes, and internal friction.</p>
-        <div class="insight-card-footer">
-          <span style="font-size:0.85rem;color:var(--txt)">By Dr. Cindy Cushman</span>
-          <a class="read-more-link" href="hr-services.html">Read summary →</a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Article 5 -->
-    <article class="insight-card">
-      <div class="insight-card-header" style="background:linear-gradient(135deg, #09172e 0%, #0377b8 100%)">
-        <span class="insight-badge">Strategy</span>
-        <div style="color:rgba(255,255,255,0.8);font-size:0.82rem">HR Outsourcing</div>
-      </div>
-      <div class="insight-card-body">
-        <div class="insight-date">January 4, 2024 • 6 min read</div>
-        <h3>HR Outsourcing: When to Leverage External Expertise</h3>
-        <p>Five telltale signs your business has outgrown makeshift spreadsheets, and how bringing on an on-site HR partner costs a fraction of an internal full-time department.</p>
-        <div class="insight-card-footer">
-          <span style="font-size:0.85rem;color:var(--txt)">By Dr. Cindy Cushman</span>
-          <a class="read-more-link" href="about.html">Read summary →</a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Article 6 -->
-    <article class="insight-card">
-      <div class="insight-card-header" style="background:linear-gradient(135deg, #153243 0%, #284b63 100%)">
-        <span class="insight-badge">Employee Morale</span>
-        <div style="color:rgba(255,255,255,0.8);font-size:0.82rem">Performance &amp; Culture</div>
-      </div>
-      <div class="insight-card-body">
-        <div class="insight-date">December 14, 2023 • 4 min read</div>
-        <h3>5 Great Examples of Employee-Reward Programs That Drive Up Performance</h3>
-        <p>Creative, budget-conscious incentive and recognition systems that boost morale, reinforce company values, and encourage healthy peer competition.</p>
-        <div class="insight-card-footer">
-          <span style="font-size:0.85rem;color:var(--txt)">By Dr. Cindy Cushman</span>
-          <a class="read-more-link" href="contact.html">Read summary →</a>
-        </div>
-      </div>
-    </article>
+  <div class="no-results-box" id="no-results">
+    <h3 style="color:var(--navy);margin-bottom:8px">No matching articles found</h3>
+    <p style="color:var(--txt);margin-bottom:20px">Try searching with a different keyword or select another category above.</p>
+    <button class="btn btn-navy" id="reset-filters-btn">Reset All Filters</button>
   </div>
 </div></section>
 
@@ -222,7 +1095,7 @@
 <footer class="f"><div class="wrap">
   <div class="cols">
     <div>
-      <a class="brand" href="/" aria-label="HR2fit home"><img src="images/hr2fit-logo-white.png" alt="HR2fit" width="132" height="48"></a>
+      <a class="brand" href="index.html" aria-label="HR2fit home"><img src="images/hr2fit-logo-white.png" alt="HR2fit" width="132" height="48"></a>
       <p>A full-service HR outsourcing provider. We build and deliver HR services to your place of business, designed to work for you.</p>
       <div class="social"><a href="https://www.linkedin.com/company/hr2fit/">LinkedIn</a><a href="https://www.facebook.com/HR2fit/">Facebook</a><a href="https://twitter.com/HR2fit">X</a></div>
     </div>
@@ -247,5 +1120,79 @@
 </div></footer>
 
 <script src="js/main.js"></script>
+<script>
+// Client-side search and category filtering
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('insights-search');
+  const pills = document.querySelectorAll('.cat-pill');
+  const cards = document.querySelectorAll('.insight-card');
+  const countEl = document.getElementById('showing-count');
+  const activeLabelEl = document.getElementById('active-category-label');
+  const noResultsEl = document.getElementById('no-results');
+  const resetBtn = document.getElementById('reset-filters-btn');
+
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  function filterCards() {
+    let visibleCount = 0;
+    const query = searchQuery.trim().toLowerCase();
+
+    cards.forEach(card => {
+      const cat = card.getAttribute('data-category');
+      const title = card.getAttribute('data-title') || '';
+      const excerpt = card.getAttribute('data-excerpt') || '';
+
+      const matchesCat = (currentCategory === 'all') || (cat === currentCategory);
+      const matchesSearch = !query || title.includes(query) || excerpt.includes(query);
+
+      if (matchesCat && matchesSearch) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    countEl.textContent = visibleCount;
+    if (visibleCount === 0) {
+      noResultsEl.style.display = 'block';
+    } else {
+      noResultsEl.style.display = 'none';
+    }
+  }
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', function() {
+      pills.forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      currentCategory = this.getAttribute('data-filter');
+      activeLabelEl.textContent = currentCategory === 'all' ? 'All Categories' : currentCategory;
+      filterCards();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      searchQuery = e.target.value;
+      filterCards();
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      currentCategory = 'all';
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+      pills.forEach(p => {
+        if (p.getAttribute('data-filter') === 'all') p.classList.add('active');
+        else p.classList.remove('active');
+      });
+      activeLabelEl.textContent = 'All Categories';
+      filterCards();
+    });
+  }
+});
+</script>
 </body>
 </html>
